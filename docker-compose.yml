@@ -1,0 +1,12 @@
+services:
+  db:
+    image: ghcr.io/akirasaito-png/home-credit-pg:16
+    container_name: home-credit-db
+    ports:
+      - "127.0.0.1:${PG_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d home_credit"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
